@@ -4,17 +4,23 @@ import jwt
 import datetime
 
 from .stubs import hive_pb2, hive_pb2_grpc
-from elastos_adenine.settings import REQUEST_TIMEOUT, TOKEN_EXPIRATION
+from elastos_adenine.settings import REQUEST_TIMEOUT, TOKEN_EXPIRATION, GRPC_MAX_MSG_SIZE
 
 
 class Hive:
 
     def __init__(self, host, port, production):
         if not production:
-            self._channel = grpc.insecure_channel('{}:{}'.format(host, port))
+            self._channel = grpc.insecure_channel('{}:{}'.format(host, port), options=[
+                  ('grpc.max_send_message_length', GRPC_MAX_MSG_SIZE),
+                  ('grpc.max_receive_message_length', GRPC_MAX_MSG_SIZE)
+            ])
         else:
             credentials = grpc.ssl_channel_credentials()
-            self._channel = grpc.secure_channel('{}:{}'.format(host, port), credentials)
+            self._channel = grpc.secure_channel('{}:{}'.format(host, port), credentials, options=[
+                  ('grpc.max_send_message_length', GRPC_MAX_MSG_SIZE),
+                  ('grpc.max_receive_message_length', GRPC_MAX_MSG_SIZE)
+            ])
 
         self.stub = hive_pb2_grpc.HiveStub(self._channel)
 

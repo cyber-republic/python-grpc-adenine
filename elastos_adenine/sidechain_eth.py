@@ -5,17 +5,23 @@ import datetime
 from solidity_parser import parser
 
 from .stubs import sidechain_eth_pb2, sidechain_eth_pb2_grpc
-from elastos_adenine.settings import REQUEST_TIMEOUT, TOKEN_EXPIRATION
+from elastos_adenine.settings import REQUEST_TIMEOUT, TOKEN_EXPIRATION, GRPC_MAX_MSG_SIZE
 
 
 class SidechainEth:
 
     def __init__(self, host, port, production):
         if not production:
-            self._channel = grpc.insecure_channel('{}:{}'.format(host, port))
+            self._channel = grpc.insecure_channel('{}:{}'.format(host, port), options=[
+                  ('grpc.max_send_message_length', GRPC_MAX_MSG_SIZE),
+                  ('grpc.max_receive_message_length', GRPC_MAX_MSG_SIZE)
+            ])
         else:
             credentials = grpc.ssl_channel_credentials()
-            self._channel = grpc.secure_channel('{}:{}'.format(host, port), credentials)
+            self._channel = grpc.secure_channel('{}:{}'.format(host, port), credentials, options=[
+                  ('grpc.max_send_message_length', GRPC_MAX_MSG_SIZE),
+                  ('grpc.max_receive_message_length', GRPC_MAX_MSG_SIZE)
+            ])
 
         self.stub = sidechain_eth_pb2_grpc.SidechainEthStub(self._channel)
 

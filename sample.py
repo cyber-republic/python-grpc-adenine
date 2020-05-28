@@ -32,7 +32,7 @@ def main():
     ela_to_use = 'EQeMkfRk3JzePY7zpUSg5ZSvNsWedzqWXN'
     ela_eth_to_use = '0x48F01b2f2b1a546927ee99dD03dCa37ff19cB84e'
     did_to_use = 'n84dqvIK9O0LIPXi27uL0aRnoR45Exdxl218eQyPDD4lW8RPov'
-    api_key_to_use = '1htfwNmjePvE6blvXPc3YjD8Iqkst53ZF8EwnCZxbvyIcOoHt8wQHxPq4y501awz'
+    api_key_to_use = 'lvCwKFy2JFFt4eAANdcXCe0fa7Iqw7Xk1qxgaQwNiw2OpZqSou5Vh7bT74MpOBWf'
     private_key_to_use = '1F54BCD5592709B695E85F83EBDA515971723AFF56B32E175F14A158D5AC0D99'
 
     # Check whether grpc server is healthy first
