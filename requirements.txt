@@ -1,4 +1,4 @@
-cryptography==2.9.2
+cryptography==3.2
 grpcio==1.28.1
 grpcio-tools==1.28.1
 PyJWT==1.7.1
